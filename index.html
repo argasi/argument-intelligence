@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arguments Intelligence | AI-Driven Life Decisions</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #0f172a;
+            --accent: #06b6d4;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --text-gray: #64748b;
+            --success: #10b981;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+        
+        body { background-color: var(--light); color: var(--secondary); line-height: 1.6; }
+
+        /* Navigation */
+        nav { background: white; padding: 1rem 5%; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); }
+        .logo span { color: var(--secondary); }
+        .nav-links a { margin-left: 2rem; text-decoration: none; color: var(--dark); font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* Hero Section */
+        header { text-align: center; padding: 4rem 1rem; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white; }
+        header h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        header p { max-width: 700px; margin: 0 auto; color: #cbd5e1; font-size: 1.1rem; }
+        .cta-btn { display: inline-block; margin-top: 2rem; padding: 0.8rem 2rem; background: var(--accent); color: white; border-radius: 50px; text-decoration: none; font-weight: bold; transition: 0.3s; }
+        .cta-btn:hover { background: var(--primary); transform: translateY(-2px); }
+
+        /* Concept Section */
+        .section { padding: 4rem 10%; }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem; }
+        
+        .card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.3s; border-top: 4px solid var(--primary); }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
+        .card h3 { margin-bottom: 0.5rem; color: var(--dark); }
+        .card p { color: var(--text-gray); font-size: 0.9rem; }
+
+        /* The Tool Interface */
+        #tool-interface { background: white; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); padding: 2rem; max-width: 1000px; margin: 0 auto; }
+        
+        .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+        label { font-weight: 600; display: block; margin-bottom: 0.5rem; }
+        select, input { width: 100%; padding: 0.8rem; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 1rem; }
+        
+        .framework-description { background: #eff6ff; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid var(--primary); }
+
+        .analysis-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+        .input-group { display: flex; flex-direction: column; }
+        .input-group textarea { height: 100px; padding: 0.8rem; border: 1px solid #cbd5e1; border-radius: 8px; resize: vertical; font-family: inherit; }
+        
+        .analyze-btn { width: 100%; margin-top: 2rem; padding: 1rem; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .analyze-btn:hover { background: #1d4ed8; }
+
+        /* Results Section */
+        #results-area { margin-top: 2rem; display: none; border-top: 2px dashed #cbd5e1; padding-top: 2rem; }
+        .ai-badge { display: inline-block; background: var(--secondary); color: var(--accent); padding: 0.2rem 0.8rem; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-bottom: 1rem; }
+        .score-card { background: #f0fdf4; border: 1px solid #bbf7d0; padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem; }
+
+        @media (max-width: 768px) {
+            .controls { grid-template-columns: 1fr; }
+            header h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Args<span>Int</span></div>
+        <div class="nav-links">
+            <a href="#about">Concept</a>
+            <a href="#frameworks">Frameworks</a>
+            <a href="#tool">Decision Tool</a>
+        </div>
+    </nav>
+
+    <header>
+        <h1>Arguments Intelligence</h1>
+        <p>Enhancing everyday decision-making by applying enterprise-grade data frameworks and simulated AI logic to personal life scenarios.</p>
+        <a href="#tool" class="cta-btn">Start Analysis</a>
+    </header>
+
+    <section id="about" class="section">
+        <h2>What is Arguments Intelligence?</h2>
+        <p style="max-width: 800px; margin-top: 1rem; color: var(--text-gray);">
+            Arguments Intelligence helps ordinary people move beyond "gut feelings" by structuring data around their decisions. 
+            By borrowing proven analytical methods from business strategy (like SWOT or PESTLE), we can visualize the pros, cons, and external factors of any life choice.
+        </p>
+        
+        <div class="grid-container">
+            <div class="card">
+                <h3>Structured Thinking</h3>
+                <p>Breaks down complex problems (e.g., "Should I move cities?") into manageable categories.</p>
+            </div>
+            <div class="card">
+                <h3>Bias Reduction</h3>
+                <p>Forces you to look at Negatives (Threats) and Positives (Opportunities) equally, reducing emotional bias.</p>
+            </div>
+            <div class="card">
+                <h3>Holistic View</h3>
+                <p>Considers external factors like Economy and Technology, not just personal preference.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="frameworks" class="section" style="background: white;">
+        <h2>Supported Frameworks</h2>
+        <div class="grid-container">
+            <div class="card">
+                <h3>SWOT</h3>
+                <p>Strengths, Weaknesses, Opportunities, Threats. Best for general personal decisions.</p>
+            </div>
+            <div class="card">
+                <h3>PESTLE</h3>
+                <p>Political, Economic, Social, Tech, Legal, Environmental. Best for major relocations or investments.</p>
+            </div>
+            <div class="card">
+                <h3>SOAR</h3>
+                <p>Strengths, Opportunities, Aspirations, Results. A positive approach for career planning.</p>
+            </div>
+            <div class="card">
+                <h3>TOWS</h3>
+                <p>Cross-referencing SWOT. Turns threats into opportunities. Best for difficult dilemmas.</p>
+            </div>
+            <div class="card">
+                <h3>Porter's 5 Forces</h3>
+                <p>Adapted for personal leverage. Best for negotiation (buying a car, salary talks).</p>
+            </div>
+            <div class="card">
+                <h3>NOISE</h3>
+                <p>Needs, Opportunities, Improvements, Strengths, Exceptions. Best for family/group decisions.</p>
+            </div>
+            <div class="card">
+                <h3>Balanced Scorecard</h3>
+                <p>Financial, Customer (Family/Social), Process (Habits), Growth. Best for life balance.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="tool" class="section" style="background: #f1f5f9;">
+        <div id="tool-interface">
+            <h2 style="margin-bottom: 1.5rem; text-align: center;">Decision Analytics Engine</h2>
+            
+            <div class="controls">
+                <div>
+                    <label>What are you deciding on?</label>
+                    <input type="text" id="decision-topic" placeholder="e.g., Buying a House, Quitting Job...">
+                </div>
+                <div>
+                    <label>Select Analytic Framework</label>
+                    <select id="framework-selector">
+                        <option value="swot">SWOT Analysis</option>
+                        <option value="pestle">PESTLE Analysis</option>
+                        <option value="soar">SOAR Analysis</option>
+                        <option value="tows">TOWS Matrix</option>
+                        <option value="porter">Porter's 5 Forces (Personal)</option>
+                        <option value="noise">NOISE Analysis</option>
+                        <option value="scorecard">Balanced Scorecard</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="dynamic-description" class="framework-description">
+                </div>
+
+            <div id="dynamic-inputs" class="analysis-grid">
+                </div>
+
+            <button class="analyze-btn" onclick="generateAnalysis()">Generate AI Arguments</button>
+
+            <div id="results-area">
+                <span class="ai-badge">Arguments Intelligence Output</span>
+                <h3 id="result-title">Analysis for: [Topic]</h3>
+                <div id="ai-insight" class="score-card">
+                    <h4>Simulated AI Insight</h4>
+                    <p id="insight-text">Loading...</p>
+                </div>
+                <div id="structured-data" style="margin-top: 1rem;">
+                    </div>
+            </div>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 2rem; background: var(--secondary); color: white; margin-top: 2rem;">
+        <p>&copy; 2025 Arguments Intelligence. Empowering everyday decisions with data.</p>
+    </footer>
+
+    <script>
+        // Framework Data Definitions
+        const frameworks = {
+            swot: {
+                title: "SWOT Analysis",
+                desc: "A classic tool to evaluate internal and external factors.",
+                fields: [
+                    { id: 's', label: 'Strengths (Internal)', placeholder: 'What do you do well? What resources do you have?' },
+                    { id: 'w', label: 'Weaknesses (Internal)', placeholder: 'What do you lack? What are your limitations?' },
+                    { id: 'o', label: 'Opportunities (External)', placeholder: 'What market trends or events can you exploit?' },
+                    { id: 't', label: 'Threats (External)', placeholder: 'What obstacles or competitors do you face?' }
+                ]
+            },
+            pestle: {
+                title: "PESTLE Analysis",
+                desc: "Analyzes macro-environmental factors. Great for long-term planning.",
+                fields: [
+                    { id: 'p', label: 'Political', placeholder: 'Tax policies, stability, government support?' },
+                    { id: 'e', label: 'Economic', placeholder: 'Inflation, interest rates, salary trends?' },
+                    { id: 's', label: 'Social', placeholder: 'Lifestyle changes, cultural barriers, demographics?' },
+                    { id: 't', label: 'Technological', placeholder: 'New tech, automation, obsolescence?' },
+                    { id: 'l', label: 'Legal', placeholder: 'Contracts, employment laws, regulations?' },
+                    { id: 'env', label: 'Environmental', placeholder: 'Climate, pollution, sustainability?' }
+                ]
+            },
+            soar: {
+                title: "SOAR Analysis",
+                desc: "Focuses on the positive: Strengths, Opportunities, Aspirations, Results.",
+                fields: [
+                    { id: 's', label: 'Strengths', placeholder: 'What are your greatest assets?' },
+                    { id: 'o', label: 'Opportunities', placeholder: 'What are the best possibilities?' },
+                    { id: 'a', label: 'Aspirations', placeholder: 'What do you deeply care about achieving?' },
+                    { id: 'r', label: 'Results', placeholder: 'How will you measure success?' }
+                ]
+            },
+            tows: {
+                title: "TOWS Matrix",
+                desc: "Matches internal factors to external ones to generate strategies.",
+                fields: [
+                    { id: 'so', label: 'SO Strategy (Maxi-Maxi)', placeholder: 'How can you use Strengths to maximize Opportunities?' },
+                    { id: 'wo', label: 'WO Strategy (Mini-Maxi)', placeholder: 'How can you minimize Weaknesses by taking advantage of Opportunities?' },
+                    { id: 'st', label: 'ST Strategy (Maxi-Mini)', placeholder: 'How can you use Strengths to avoid Threats?' },
+                    { id: 'wt', label: 'WT Strategy (Mini-Mini)', placeholder: 'How can you minimize Weaknesses and avoid Threats?' }
+                ]
+            },
+            porter: {
+                title: "Porter's 5 Forces (Personal)",
+                desc: "Evaluates competitive intensity. Adapted for personal negotiation/leverage.",
+                fields: [
+                    { id: 'rivalry', label: 'Competitive Rivalry', placeholder: 'Who else wants what you want?' },
+                    { id: 'supplier', label: 'Supplier Power', placeholder: 'Who holds the resources? (e.g., Banks, Landlords)' },
+                    { id: 'buyer', label: 'Buyer Power', placeholder: 'What is your leverage? (e.g., Cash, Skills)' },
+                    { id: 'substitution', label: 'Threat of Substitution', placeholder: 'Are there completely different ways to solve this?' },
+                    { id: 'entry', label: 'Threat of New Entry', placeholder: 'Will it get harder to do this later?' }
+                ]
+            },
+            noise: {
+                title: "NOISE Analysis",
+                desc: "A solution-focused tool: Needs, Opportunities, Improvements, Strengths, Exceptions.",
+                fields: [
+                    { id: 'n', label: 'Needs', placeholder: 'What do you absolutely require?' },
+                    { id: 'o', label: 'Opportunities', placeholder: 'What external doors are open?' },
+                    { id: 'i', label: 'Improvements', placeholder: 'What can be done better immediately?' },
+                    { id: 's', label: 'Strengths', placeholder: 'What is working well?' },
+                    { id: 'e', label: 'Exceptions', placeholder: 'When does the problem NOT happen? (Bright spots)' }
+                ]
+            },
+            scorecard: {
+                title: "Balanced Scorecard (Life)",
+                desc: "View your life from four perspectives: Financial, Relationship, Process, Growth.",
+                fields: [
+                    { id: 'fin', label: 'Financial', placeholder: 'Income, Savings, Investments, Debt?' },
+                    { id: 'rel', label: 'Customer/Relationships', placeholder: 'Family, Friends, Networking?' },
+                    { id: 'proc', label: 'Internal Processes', placeholder: 'Habits, Routine, Health, Time Management?' },
+                    { id: 'learn', label: 'Learning & Growth', placeholder: 'Skills, Education, Mental Wellbeing?' }
+                ]
+            }
+        };
+
+        const selector = document.getElementById('framework-selector');
+        const descDiv = document.getElementById('dynamic-description');
+        const inputsDiv = document.getElementById('dynamic-inputs');
+
+        // Render inputs based on selection
+        function renderInterface() {
+            const val = selector.value;
+            const data = frameworks[val];
+
+            descDiv.innerHTML = `<strong>${data.title}:</strong> ${data.desc}`;
+            
+            let html = '';
+            data.fields.forEach(field => {
+                html += `
+                    <div class="input-group">
+                        <label for="${field.id}">${field.label}</label>
+                        <textarea id="${field.id}" placeholder="${field.placeholder}"></textarea>
+                    </div>
+                `;
+            });
+            inputsDiv.innerHTML = html;
+        }
+
+        // Initialize
+        selector.addEventListener('change', renderInterface);
+        renderInterface();
+
+        // "AI" Simulation Logic
+        function generateAnalysis() {
+            const topic = document.getElementById('decision-topic').value || "General Life Scenario";
+            const val = selector.value;
+            const data = frameworks[val];
+            
+            // Collect Data
+            let hasContent = false;
+            let inputs = {};
+            data.fields.forEach(field => {
+                const content = document.getElementById(field.id).value;
+                if(content.trim() !== "") hasContent = true;
+                inputs[field.label] = content;
+            });
+
+            if(!hasContent) {
+                alert("Please enter some data into the fields to generate an analysis.");
+                return;
+            }
+
+            // Display Logic
+            document.getElementById('results-area').style.display = 'block';
+            document.getElementById('result-title').innerText = `Analysis for: ${topic}`;
+            
+            // Simulate AI Insight generation based on framework
+            let insight = "";
+            switch(val) {
+                case 'swot': insight = "Based on your inputs, prioritize using your Strengths to capture the identified Opportunities immediately. Mitigate the Threats by shoring up the specific Weaknesses you listed."; break;
+                case 'pestle': insight = "This scenario is heavily influenced by external macro-factors. Ensure your plan is flexible enough to handle the Political and Economic volatility you identified."; break;
+                case 'soar': insight = "This is a growth-oriented plan. Your Aspirations align well with your Strengths. Focus on the 'Results' metric to ensure you stay on track."; break;
+                case 'tows': insight = "This is a strategic pivot. You are looking to minimize negatives. The most high-leverage move is your 'Maxi-Maxi' strategy defined above."; break;
+                case 'porter': insight = "You are analyzing leverage. If 'Supplier Power' is high, look for Substitutes to increase your bargaining power."; break;
+                case 'noise': insight = "Focus on the 'Exceptions'. Replicate the conditions where the problem currently doesn't exist to solve the 'Needs'."; break;
+                case 'scorecard': insight = "Ensure that success in 'Financial' doesn't come at the cost of 'Relationships' or 'Health'. Balance is the key metric here."; break;
+            }
+            
+            document.getElementById('insight-text').innerText = insight;
+
+            // Render Summary
+            let summaryHtml = '<div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1rem;">';
+            for (const [key, value] of Object.entries(inputs)) {
+                if(value) {
+                    summaryHtml += `
+                        <div style="background:white; padding:1rem; border:1px solid #e2e8f0; border-radius:6px;">
+                            <strong style="color:var(--primary)">${key}</strong>
+                            <p>${value}</p>
+                        </div>
+                    `;
+                }
+            }
+            summaryHtml += '</div>';
+            document.getElementById('structured-data').innerHTML = summaryHtml;
+            
+            // Scroll to results
+            document.getElementById('results-area').scrollIntoView({behavior: "smooth"});
+        }
+    </script>
+</body>
+</html>
