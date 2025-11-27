@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARGSI - LLM Benchmark Dashboard</title>
+    <!-- Tailwind CSS CDN for modern, responsive design -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Font and Styling */
+        html { scroll-behavior: smooth; }
+        body { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; background-color: #F8F9FB; }
+        .data-card { @apply bg-white p-6 rounded-xl shadow-lg border-t-4 border-indigo-500; }
+        .data-header { @apply text-xs font-semibold uppercase text-gray-500 mb-1; }
+        .data-value { @apply text-2xl font-extrabold text-gray-900; }
+        
+        /* Table Styles */
+        .benchmark-table th { @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50; }
+        .benchmark-table td { @apply px-6 py-4 whitespace-nowrap text-sm text-gray-700; }
+        .benchmark-table tr:hover { @apply bg-indigo-50/50; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="../index.html" class="text-blue-600 hover:text-blue-800 text-sm font-medium">&larr; Back to ARGSI Portfolio</a>
+                <span class="text-sm font-medium text-gray-500">Arguments Intelligence Benchmarking</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="space-y-10">
+
+            <!-- Title and Selector -->
+            <div class="bg-white p-8 rounded-xl shadow-2xl">
+                <h1 class="text-4xl font-extrabold text-gray-900 mb-2">LLM Strategy Dashboard</h1>
+                <p class="text-lg text-gray-600 mb-6">Real-time comparative analysis of commercial and open-source models for Arguments Intelligence quality and operational efficiency.</p>
+
+                <div class="md:flex md:items-center space-y-4 md:space-y-0 md:space-x-4">
+                    <label for="prompt-selector" class="block text-sm font-medium text-gray-700 md:w-1/4">Select Benchmark Scenario:</label>
+                    <select id="prompt-selector" onchange="renderDashboard()" class="mt-1 block w-full md:w-3/4 py-3 px-4 border border-gray-300 bg-white rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <!-- Options generated dynamically from MOCK_BENCHMARK_RESULTS -->
+                    </select>
+                </div>
+            </div>
+
+            <!-- Benchmark Results Table -->
+            <section id="benchmark-results" class="data-card border-t-8 border-indigo-600">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Core Metrics Comparison</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 benchmark-table">
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th class="text-center">A.I. Score (1-100)</th>
+                                <th class="text-center">Latency (s)</th>
+                                <th class="text-center">Tokens (In+Out)</th>
+                                <th class="text-right">Cost/Inference ($)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="metrics-body" class="bg-white divide-y divide-gray-200">
+                            <!-- Data injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Scaling Projections -->
+            <section id="scaling-report" class="data-card border-t-8 border-green-600">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Operational Scaling Projection</h2>
+                <p class="text-gray-600 mb-6">Estimated cost and time for large-scale production inference.</p>
+                
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 benchmark-table">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Model</th>
+                                <th colspan="2" class="text-center">1,000 Inferences (Small Scale)</th>
+                                <th colspan="2" class="text-center">1,000,000 Inferences (Production Scale)</th>
+                            </tr>
+                            <tr>
+                                <th class="text-right">Est. Cost ($)</th>
+                                <th class="text-right">Est. Time (Hours)</th>
+                                <th class="text-right">Est. Cost ($)</th>
+                                <th class="text-right">Est. Time (Days)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="scaling-body" class="bg-white divide-y divide-gray-200">
+                            <!-- Data injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-10 bg-gray-900 text-white py-6">
+        <div class="max-w-7xl mx-auto px-4 text-center text-sm">
+            Powered by ARGSI Data & AI. Find the Python benchmarking client in the repository root.
+        </div>
+    </footer>
+
+    <script>
+        // --- MOCK BENCHMARK RESULTS (Generated by llm_benchmark_client.py) ---
+        // Updated mock data includes diverse models from OpenAI, Anthropic, Google, etc.
+        const MOCK_BENCHMARK_RESULTS = [
+            {
+                promptName: "Analyze EV Pros & Cons (Balanced Argument)",
+                results: [
+                    // High Performance / High Cost
+                    { llmName: "GPT-4o", argumentIntelligenceScore: 98, inputTokens: 150, outputTokens: 450, latencySeconds: 2.5, costPerToken: 0.0000050 },
+                    { llmName: "Claude 3 Opus", argumentIntelligenceScore: 97, inputTokens: 160, outputTokens: 465, latencySeconds: 3.8, costPerToken: 0.0000100 },
+                    // High Performance / High Efficiency
+                    { llmName: "Mixtral 8x22B Instruct", argumentIntelligenceScore: 90, inputTokens: 155, outputTokens: 480, latencySeconds: 2.2, costPerToken: 0.0000015 },
+                    { llmName: "Qwen 2 72B Instruct", argumentIntelligenceScore: 85, inputTokens: 140, outputTokens: 440, latencySeconds: 3.1, costPerToken: 0.0000020 },
+                    // High Speed / Lowest Cost
+                    { llmName: "Gemini 2.5 Flash", argumentIntelligenceScore: 78, inputTokens: 145, outputTokens: 400, latencySeconds: 1.1, costPerToken: 0.00000025 },
+                    { llmName: "Llama 3 8B Instruct", argumentIntelligenceScore: 65, inputTokens: 148, outputTokens: 380, latencySeconds: 0.8, costPerToken: 0.00000008 },
+                ]
+            },
+            {
+                promptName: "Evaluate PESTLE for City Relocation",
+                results: [
+                    { llmName: "GPT-4o", argumentIntelligenceScore: 95, inputTokens: 220, outputTokens: 780, latencySeconds: 4.2, costPerToken: 0.0000050 },
+                    { llmName: "Claude 3 Opus", argumentIntelligenceScore: 96, inputTokens: 230, outputTokens: 800, latencySeconds: 5.5, costPerToken: 0.0000100 },
+                    { llmName: "Mixtral 8x22B Instruct", argumentIntelligenceScore: 85, inputTokens: 210, outputTokens: 750, latencySeconds: 3.5, costPerToken: 0.0000015 },
+                    { llmName: "Qwen 2 72B Instruct", argumentIntelligenceScore: 82, inputTokens: 225, outputTokens: 790, latencySeconds: 4.8, costPerToken: 0.0000020 },
+                    { llmName: "Gemini 2.5 Flash", argumentIntelligenceScore: 75, inputTokens: 200, outputTokens: 600, latencySeconds: 1.5, costPerToken: 0.00000025 },
+                    { llmName: "Llama 3 8B Instruct", argumentIntelligenceScore: 55, inputTokens: 215, outputTokens: 550, latencySeconds: 1.2, costPerToken: 0.00000008 },
+                ]
+            },
+            {
+                promptName: "SWOT Analysis for New Side Project",
+                results: [
+                    { llmName: "GPT-4o", argumentIntelligenceScore: 99, inputTokens: 120, outputTokens: 380, latencySeconds: 1.9, costPerToken: 0.0000050 },
+                    { llmName: "Claude 3 Opus", argumentIntelligenceScore: 98, inputTokens: 125, outputTokens: 400, latencySeconds: 2.8, costPerToken: 0.0000100 },
+                    { llmName: "Mixtral 8x22B Instruct", argumentIntelligenceScore: 92, inputTokens: 125, outputTokens: 400, latencySeconds: 1.4, costPerToken: 0.0000015 },
+                    { llmName: "Qwen 2 72B Instruct", argumentIntelligenceScore: 88, inputTokens: 130, outputTokens: 410, latencySeconds: 2.1, costPerToken: 0.0000020 },
+                    { llmName: "Gemini 2.5 Flash", argumentIntelligenceScore: 80, inputTokens: 115, outputTokens: 350, latencySeconds: 0.8, costPerToken: 0.00000025 },
+                    { llmName: "Llama 3 8B Instruct", argumentIntelligenceScore: 70, inputTokens: 118, outputTokens: 320, latencySeconds: 0.7, costPerToken: 0.00000008 },
+                ]
+            }
+        ];
+        // --- END MOCK DATA ---
+
+        const promptSelector = document.getElementById('prompt-selector');
+        const metricsBody = document.getElementById('metrics-body');
+        const scalingBody = document.getElementById('scaling-body');
+        
+        const FORMATTER_COST = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 5 });
+        const FORMATTER_TIME = new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 });
+        const FORMATTER_LARGE_COST = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 });
+
+
+        function initializeSelector() {
+            MOCK_BENCHMARK_RESULTS.forEach((prompt, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = prompt.promptName;
+                promptSelector.appendChild(option);
+            });
+            renderDashboard();
+        }
+
+        function calculateScaling(data, scale) {
+            const totalTokens = data.inputTokens + data.outputTokens;
+            const totalCost = totalTokens * data.costPerToken * scale;
+            const totalLatency = data.latencySeconds * scale;
+            return { totalCost, totalLatency };
+        }
+
+        function renderDashboard() {
+            const selectedIndex = parseInt(promptSelector.value || 0);
+            const currentData = MOCK_BENCHMARK_RESULTS[selectedIndex].results;
+
+            metricsBody.innerHTML = '';
+            scalingBody.innerHTML = '';
+            
+            // Render Core Metrics Table
+            currentData.forEach(data => {
+                const totalTokens = data.inputTokens + data.outputTokens;
+                const costPerInference = totalTokens * data.costPerToken;
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="font-bold text-indigo-700">${data.llmName}</td>
+                    <td class="text-center">${data.argumentIntelligenceScore}</td>
+                    <td class="text-center">${FORMATTER_TIME.format(data.latencySeconds)}</td>
+                    <td class="text-center">${totalTokens}</td>
+                    <td class="text-right">${FORMATTER_COST.format(costPerInference)}</td>
+                `;
+                metricsBody.appendChild(row);
+            });
+            
+            // Render Scaling Table
+            currentData.forEach(data => {
+                const scale1K = calculateScaling(data, 1000);
+                const scale1M = calculateScaling(data, 1000000);
+
+                const time1KHours = scale1K.totalLatency / 3600;
+                const time1MDays = scale1M.totalLatency / 86400;
+
+                const isBestCost = data === currentData.reduce((prev, current) => (calculateScaling(prev, 1).totalCost < calculateScaling(current, 1).totalCost) ? prev : current);
+
+                const row = document.createElement('tr');
+                row.className = isBestCost ? 'bg-green-50 font-semibold' : '';
+
+                row.innerHTML = `
+                    <td class="font-bold ${isBestCost ? 'text-green-800' : 'text-indigo-700'}">${data.llmName} ${isBestCost ? '🌟' : ''}</td>
+                    
+                    <td class="text-right">${FORMATTER_LARGE_COST.format(scale1K.totalCost)}</td>
+                    <td class="text-right">${FORMATTER_TIME.format(time1KHours)}</td>
+                    
+                    <td class="text-right">${FORMATTER_LARGE_COST.format(scale1M.totalCost)}</td>
+                    <td class="text-right">${FORMATTER_TIME.format(time1MDays)}</td>
+                `;
+                scalingBody.appendChild(row);
+            });
+        }
+
+        // Initialize the dashboard on load
+        window.onload = initializeSelector;
+
+    </script>
+</body>
+</html>
