@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usecase: Monte Carlo Financial Forecast</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7fafc; }
+        .container { max-width: 800px; }
+        input[type="number"] { transition: all 0.2s; }
+        .results-box { min-height: 200px; }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto p-8">
+        <a href="../index.html" class="text-blue-600 hover:text-blue-800 text-sm font-medium">&larr; Back to ARGSI Portfolio</a>
+        
+        <h1 class="text-4xl font-extrabold text-gray-900 mt-4 mb-2">Usecase: Financial Risk Analyzer</h1>
+        <p class="text-gray-600 mb-6 border-b pb-4">
+            **ARGSI Solution:** Simulates thousands of potential financial market outcomes to provide probability-based forecasts, reducing the cognitive bias of "best-case thinking."
+        </p>
+
+        <div class="bg-white p-6 rounded-xl shadow-xl grid md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+                <label class="block">
+                    <span class="text-gray-700 font-medium">Initial Savings ($)</span>
+                    <input id="initial" type="number" value="10000" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2">
+                </label>
+                <label class="block">
+                    <span class="text-gray-700 font-medium">Monthly Contribution ($)</span>
+                    <input id="monthly" type="number" value="500" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2">
+                </label>
+                <label class="block">
+                    <span class="text-gray-700 font-medium">Target Years</span>
+                    <input id="years" type="number" value="10" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2">
+                </label>
+            </div>
+            <div class="space-y-4">
+                <label class="block">
+                    <span class="text-gray-700 font-medium">Average Annual Return (%)</span>
+                    <input id="avgReturn" type="number" value="7" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2">
+                </label>
+                <label class="block">
+                    <span class="text-gray-700 font-medium">Volatility (Std Dev %)</span>
+                    <input id="volatility" type="number" value="15" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2">
+                </label>
+                <label class="block">
+                    <span class="text-gray-700 font-medium">Number of Simulations</span>
+                    <input id="sims" type="number" value="2000" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2">
+                </label>
+            </div>
+
+            <button onclick="runMonteCarlo()" class="md:col-span-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg shadow-md transition duration-200">
+                Run Simulation (2,000 Paths)
+            </button>
+        </div>
+
+        <div id="results" class="results-box mt-8 p-6 bg-gray-100 rounded-xl shadow-inner text-gray-800">
+            <h3 class="text-2xl font-semibold mb-3">Simulation Results:</h3>
+            <p id="output-50" class="text-lg">Enter parameters and click "Run Simulation" to see the probability-based forecast.</p>
+            <p id="output-90" class="text-md text-red-700 mt-2"></p>
+        </div>
+    </div>
+
+    <script>
+        // Monte Carlo Simulation Core Logic
+        function normalDistribution(mean, stdDev) {
+            // Box-Muller transform for normally distributed random numbers
+            let u = 0, v = 0;
+            while (u === 0) u = Math.random(); // Converting (0,1] to (0,1)
+            while (v === 0) v = Math.random();
+            const z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+            return mean + z * stdDev;
+        }
+
+        function runMonteCarlo() {
+            const initial = parseFloat(document.getElementById('initial').value);
+            const monthly = parseFloat(document.getElementById('monthly').value);
+            const years = parseInt(document.getElementById('years').value);
+            const avgReturn = parseFloat(document.getElementById('avgReturn').value) / 100;
+            const volatility = parseFloat(document.getElementById('volatility').value) / 100;
+            const simulations = parseInt(document.getElementById('sims').value);
+
+            const months = years * 12;
+            const monthlyReturn = avgReturn / 12;
+            const monthlyVolatility = volatility / Math.sqrt(12);
+
+            let endValues = [];
+
+            for (let i = 0; i < simulations; i++) {
+                let currentValue = initial;
+                for (let m = 0; m < months; m++) {
+                    const simulatedReturn = normalDistribution(monthlyReturn, monthlyVolatility);
+                    currentValue = currentValue * (1 + simulatedReturn) + monthly;
+                }
+                endValues.push(currentValue);
+            }
+
+            // Sort results to find percentiles
+            endValues.sort((a, b) => a - b);
+
+            const p50Index = Math.floor(simulations * 0.50);
+            const p90Index = Math.floor(simulations * 0.10); // 10% worst case (90% success rate)
+            const p10Index = Math.floor(simulations * 0.90); // 10% best case
+
+            const p50Value = endValues[p50Index];
+            const p90Value = endValues[p90Index];
+            const p10Value = endValues[p10Index];
+
+            const formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 });
+
+            document.getElementById('output-50').innerHTML = `
+                **Median (50th Percentile):** There is a 50% chance your portfolio will be worth at least **${formatter.format(p50Value)}**.<br>
+                <span class="text-green-700">**Best Case (90th Percentile):** There is a 10% chance your portfolio will be worth at least **${formatter.format(p10Value)}**.</span>
+            `;
+            document.getElementById('output-90').innerHTML = `
+                <span class="font-bold">Worst Case Risk (10th Percentile):</span> There is a 90% chance your portfolio will be worth at least **${formatter.format(p90Value)}**. Use this as your conservative planning number.
+            `;
+        }
+    </script>
+</body>
+</html>
